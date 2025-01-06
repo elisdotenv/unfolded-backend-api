@@ -362,7 +362,7 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiBlogPostBlogPost extends Schema.SingleType {
+export interface ApiBlogPostBlogPost extends Schema.CollectionType {
   collectionName: 'blog_posts';
   info: {
     singularName: 'blog-post';

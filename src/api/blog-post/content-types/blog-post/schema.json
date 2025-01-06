@@ -1,5 +1,5 @@
 {
-  "kind": "singleType",
+  "kind": "collectionType",
   "collectionName": "blog_posts",
   "info": {
     "singularName": "blog-post",
@@ -12,8 +12,7 @@
   "pluginOptions": {},
   "attributes": {
     "Title": {
-      "type": "string",
-      "required": false
+      "type": "string"
     },
     "Brief": {
       "type": "text"
