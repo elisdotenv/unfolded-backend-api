@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_author_details_authors",
+  "info": {
+    "displayName": "Author",
+    "icon": "write"
+  },
+  "options": {},
+  "attributes": {
+    "AuthorName": {
+      "type": "string",
+      "minLength": 2
+    },
+    "AuthorBrief": {
+      "type": "text"
+    },
+    "AuthorLink": {
+      "type": "string"
+    },
+    "AuthorUsername": {
+      "type": "string"
+    }
+  }
+}

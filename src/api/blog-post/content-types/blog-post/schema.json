@@ -4,7 +4,8 @@
   "info": {
     "singularName": "blog-post",
     "pluralName": "blog-posts",
-    "displayName": "Blog-Posts"
+    "displayName": "Blog-Posts",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -12,17 +13,70 @@
   "pluginOptions": {},
   "attributes": {
     "Title": {
-      "type": "string"
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "Title",
+      "required": true
+    },
+    "CoverImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
     },
     "Brief": {
       "type": "text"
     },
-    "CoverImage": {
+    "TextBlockOne": {
+      "type": "blocks"
+    },
+    "TextBlockTwo": {
+      "type": "blocks"
+    },
+    "KeyPoints": {
+      "type": "blocks"
+    },
+    "Note": {
+      "type": "blocks"
+    },
+    "Tip": {
+      "type": "blocks"
+    },
+    "isFeaturedPost": {
+      "type": "boolean"
+    },
+    "RefSource": {
+      "type": "string",
+      "minLength": 2
+    },
+    "AuthorInfo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "author-details.author"
+    },
+    "AuthorImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
+    },
+    "TagName": {
+      "type": "component",
+      "repeatable": true,
+      "component": "tags.tags"
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::category.category",
+      "inversedBy": "blog_posts"
     }
   }
 }

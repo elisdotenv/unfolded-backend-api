@@ -368,14 +368,35 @@ export interface ApiBlogPostBlogPost extends Schema.CollectionType {
     singularName: 'blog-post';
     pluralName: 'blog-posts';
     displayName: 'Blog-Posts';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    Title: Attribute.String;
-    Brief: Attribute.Text;
+    Title: Attribute.String & Attribute.Required;
+    slug: Attribute.UID<'api::blog-post.blog-post', 'Title'> &
+      Attribute.Required;
     CoverImage: Attribute.Media<'images'>;
+    Brief: Attribute.Text;
+    TextBlockOne: Attribute.Blocks;
+    TextBlockTwo: Attribute.Blocks;
+    KeyPoints: Attribute.Blocks;
+    Note: Attribute.Blocks;
+    Tip: Attribute.Blocks;
+    isFeaturedPost: Attribute.Boolean;
+    RefSource: Attribute.String &
+      Attribute.SetMinMaxLength<{
+        minLength: 2;
+      }>;
+    AuthorInfo: Attribute.Component<'author-details.author'>;
+    AuthorImage: Attribute.Media<'images'>;
+    TagName: Attribute.Component<'tags.tags', true>;
+    categories: Attribute.Relation<
+      'api::blog-post.blog-post',
+      'manyToMany',
+      'api::category.category'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -387,6 +408,42 @@ export interface ApiBlogPostBlogPost extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::blog-post.blog-post',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCategoryCategory extends Schema.CollectionType {
+  collectionName: 'categories';
+  info: {
+    singularName: 'category';
+    pluralName: 'categories';
+    displayName: 'Category';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    NavigationItem: Attribute.String;
+    NavigationLink: Attribute.String;
+    blog_posts: Attribute.Relation<
+      'api::category.category',
+      'manyToMany',
+      'api::blog-post.blog-post'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::category.category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::category.category',
       'oneToOne',
       'admin::user'
     > &
@@ -831,6 +888,7 @@ declare module '@strapi/types' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'api::blog-post.blog-post': ApiBlogPostBlogPost;
+      'api::category.category': ApiCategoryCategory;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
